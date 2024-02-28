@@ -1,0 +1,206 @@
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+html {
+  font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  --primary: hsl(180, 29%, 50%);
+  --background-grey: hsl(180, 52%, 96%);
+  --filter-grey: hsl(180, 31%, 95%);
+  --dark-grey: hsl(180, 8%, 52%);
+  --very-dark-grey: hsl(180, 14%, 20%);
+}
+
+body {
+  background-color: var(--background-grey);
+  color: var(--very-dark-grey);
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+}
+
+header {
+  background-color: var(--primary);
+  background-image: url("images/bg-header-desktop.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  padding: 2rem 5rem;
+  margin-bottom: 5rem;
+}
+
+.filter-container {
+  background-color: white;
+  display: flex;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  margin: 0 auto;
+  padding: 1rem 1rem;
+  position: relative;
+  top: 4rem;
+  width: 80%;
+}
+
+/* Job listing */
+.job-list {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.job-listing {
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.job-listing img {
+  align-self: center;
+  margin-right: 1.5rem;
+}
+
+.info > * {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+}
+
+.info-company * {
+  margin-right: 0.5rem;
+  color: var(--primary);
+}
+
+.info-position {
+  font-size: 1.3rem;
+}
+
+.info-position:hover {
+  cursor: pointer;
+  color: var(--primary);
+  transition: all 250ms ease;
+}
+
+.new {
+  background-color: var(--primary);
+  color: white;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding: 0.4rem 0.5rem;
+  border-radius: 1rem;
+  width: fit-content;
+}
+
+.featured {
+  background-color: var(--very-dark-grey);
+  color: white;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding: 0.4rem 0.5rem;
+  border-radius: 1rem;
+  width: fit-content;
+}
+
+.info-details * {
+  color: var(--dark-grey);
+  font-weight: 400;
+  margin-right: 0.5rem;
+}
+
+.info-details *::after {
+  content: "•";
+  margin-left: 0.5rem;
+}
+
+.info-details *:last-child::after {
+  content: none;
+}
+
+.filter-list {
+  list-style-type: none;
+  padding-inline-start: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.job-filter-properties {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.filter-property,
+.filter {
+  align-self: center;
+  background-color: var(--filter-grey);
+  border-radius: 0.3rem;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1rem;
+  width: fit-content;
+  margin: 0.5rem;
+}
+
+.filter-property {
+  padding: 0.5rem;
+}
+
+.filter {
+  padding: 0.5rem 0rem 0.5rem 0.5rem;
+}
+
+.filter-property:hover {
+  color: var(--filter-grey);
+  cursor: pointer;
+  background-color: var(--primary);
+  transition: all 250ms ease;
+}
+
+.delete {
+  background-color: var(--primary);
+  border-radius: 0rem 0.3rem 0.3rem 0rem;
+  color: white;
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+}
+
+.delete:hover {
+  cursor: pointer;
+  background-color: var(--very-dark-grey);
+  transition: all 250ms ease;
+}
+
+.attribution {
+  font-size: 1rem;
+  text-align: center;
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
