@@ -155,64 +155,77 @@ const jobs = [
 let activeFilters = [];
 
 //Add job listings
-function printJobs(jobs) {
+function renderJobListings(jobs) {
   const jobListContainer = document.querySelector(".job-list");
   let jobListingHtml = "";
 
   jobs.forEach(function (job) {
-    function addJobHtml(jobElement) {
-      jobListingHtml += `<div class="job-listing">
-    <img src="${job.logo}" alt="${job.company} Logo"/>
-    <div class="info">
-      <div class="info-company">
-        <p>${job.company}</p>
-        ${job.new ? '<p class="new">New!</p>' : ""}
-        ${job.featured ? '<p class="featured">Featured</p>' : ""}
-      </div>
-      <h3 class="info-position">${job.position}</h3>
-      <div class="info-details">
-        <p>${job.postedAt}</p>
-        <p>${job.contract}</p>
-        <p>${job.location}</p>
-      </div>
-    </div>
-    <div class="job-filter-properties">
-      <a data-filter="${job.role}" class="filter-property">${job.role}</a>
-      <a data-filter="${job.level}" class="filter-property">${job.level}</a>
-      ${job.languages
-        .map(
-          (language) =>
-            `<a data-filter="${language}" class="filter-property">${language}</a>`
-        )
-        .join("")}
-      ${job.tools
-        .map(
-          (tools) =>
-            `<a data-filter="${tools}" class="filter-property">${tools}</a>`
-        )
-        .join("")}
-      </div>
-    </div>`;
+    // Function to check if job matches all active filters
+    function jobMatchesFilters(job) {
+      return activeFilters.every((filter) => {
+        return (
+          job.role === filter ||
+          job.level === filter ||
+          job.languages.includes(filter) ||
+          job.tools.includes(filter)
+        );
+      });
     }
 
-    if (activeFilters.length === 0) {
-      addJobHtml(job);
+    // Check if job matches all active filters
+    if (activeFilters.length === 0 || jobMatchesFilters(job)) {
+      // If job matches filters, add it to jobListingHtml
+      jobListingHtml += `<div class="job-listing">
+      <img src="${job.logo}" alt="${job.company} Logo"/>
+      <div class="info">
+        <div class="info-company">
+          <p>${job.company}</p>
+          ${job.new ? '<p class="new">New!</p>' : ""}
+          ${job.featured ? '<p class="featured">Featured</p>' : ""}
+        </div>
+        <h3 class="info-position">${job.position}</h3>
+        <div class="info-details">
+          <p>${job.postedAt}</p>
+          <p>${job.contract}</p>
+          <p>${job.location}</p>
+        </div>
+      </div>
+      <div class="job-filter-properties">
+        <a data-filter="${job.role}" class="filter-property">${job.role}</a>
+        <a data-filter="${job.level}" class="filter-property">${job.level}</a>
+        ${job.languages
+          .map(
+            (language) =>
+              `<a data-filter="${language}" class="filter-property">${language}</a>`
+          )
+          .join("")}
+        ${job.tools
+          .map(
+            (tools) =>
+              `<a data-filter="${tools}" class="filter-property">${tools}</a>`
+          )
+          .join("")}
+        </div>
+      </div>`;
     }
   });
 
   jobListContainer.innerHTML = jobListingHtml;
+
+  filter();
 }
 
-printJobs(jobs);
+renderJobListings(jobs);
 
 //CLICK FILTERS
 
-const filterElements = document.querySelectorAll(".filter-property");
-let filterList = document.querySelector(".filter-list");
-
 // Filters can be clicked => this will add the filter to the list of active filters
 function filter() {
+  let filterList = document.querySelector(".filter-list");
   let filterListItems = filterList.querySelectorAll("li");
+  let filterContainer = document.querySelector(".filter-container");
+  const clearElement = document.querySelector(".filter-clear");
+  const filterElements = document.querySelectorAll(".filter-property");
 
   filterElements.forEach(function (filterElement) {
     let clickedFilter = filterElement.dataset.filter;
@@ -224,8 +237,8 @@ function filter() {
             <a>${clickedFilter}</a>
             <a class="delete">X</a>
           </li>`;
+
         activeFilters.push(clickedFilter);
-        console.log(activeFilters);
       } else {
         activeFilters = activeFilters.filter(
           (filter) => filter !== clickedFilter
@@ -237,10 +250,17 @@ function filter() {
           }
         });
       }
+      filterListItems = filterList.querySelectorAll("li");
+      if (activeFilters.length === 0) {
+        filterContainer.style.display = "none";
+      } else {
+        filterContainer.style.display = "flex";
+      }
+      renderJobListings(jobs);
     });
   });
 
-  //delete filters from list
+  // Event listener for deleting filters
   filterList.addEventListener("click", function (event) {
     if (event.target.classList.contains("delete")) {
       let selectedFilter = event.target.parentElement.dataset.filter;
@@ -250,8 +270,21 @@ function filter() {
       );
 
       event.target.parentElement.remove();
+
+      filterListItems = filterList.querySelectorAll("li");
+      if (activeFilters.length === 0) {
+        filterContainer.style.display = "none";
+      } else {
+        filterContainer.style.display = "flex";
+      }
+      renderJobListings(jobs);
     }
   });
-}
 
-filter();
+  clearElement.addEventListener("click", function () {
+    activeFilters = [];
+    filterList.innerHTML = "";
+    filterContainer.style.display = "none";
+    renderJobListings(jobs);
+  });
+}
