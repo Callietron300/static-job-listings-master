@@ -100,6 +100,10 @@ header {
   margin-right: 1.5rem;
 }
 
+.job-listing img:hover {
+  cursor: pointer;
+}
+
 .job-listing:hover {
   transform: translateY(-2.5px);
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.4);
