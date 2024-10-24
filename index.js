@@ -176,18 +176,20 @@ function renderJobListings(jobs) {
     if (activeFilters.length === 0 || jobMatchesFilters(job)) {
       // If job matches filters, add it to jobListingHtml
       jobListingHtml += `<div class="job-listing">
-      <img src="${job.logo}" alt="${job.company} Logo"/>
-      <div class="info">
-        <div class="info-company">
-          <p>${job.company}</p>
-          ${job.new ? '<p class="new">New!</p>' : ""}
-          ${job.featured ? '<p class="featured">Featured</p>' : ""}
-        </div>
-        <h3 class="info-position">${job.position}</h3>
-        <div class="info-details">
-          <p>${job.postedAt}</p>
-          <p>${job.contract}</p>
-          <p>${job.location}</p>
+      <div class="info-container">
+        <img src="${job.logo}" alt="${job.company} Logo"/>
+        <div class="info">
+          <div class="info-company">
+            <p>${job.company}</p>
+            ${job.new ? '<p class="new">New!</p>' : ""}
+            ${job.featured ? '<p class="featured">Featured</p>' : ""}
+          </div>
+          <h3 class="info-position">${job.position}</h3>
+          <div class="info-details">
+            <p>${job.postedAt}</p>
+            <p>${job.contract}</p>
+            <p>${job.location}</p>
+          </div>
         </div>
       </div>
       <div class="job-filter-properties">
